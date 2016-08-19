@@ -18,7 +18,7 @@ class LoginTest(FunctionalTest):
         ## 测试中的电子邮件使用mockmyid.com
         self.browser.find_element_by_id(
             'authentication_email'
-        ).send_keys('')
+        ).send_keys('edith@mockmyid.com')
         self.browser.find_element_by_tag_name('button').click()
 
         # Persona窗口关闭
@@ -41,6 +41,6 @@ class LoginTest(FunctionalTest):
         self.fail('could not find window')
 
     def wait_for_element_with_id(self, element_id):
-        WebDriverWait(self.browser, timeout=30).until(
+        WebDriverWait(self.browser, timeout=60).until(
             lambda b: b.find_element_by_id(element_id)
         )
