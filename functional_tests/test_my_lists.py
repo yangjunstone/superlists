@@ -4,22 +4,23 @@ User = get_user_model()
 
 from django.contrib.sessions.backends.db import SessionStore
 from .base import FunctionalTest
+from .server_tools import create_session_on_server
+from .management.commands.create_session import create_pre_authenticated_session
 
 
 class MylistsTest(FunctionalTest):
 
     def create_pre_authenticated_session(self, email):
-        user = User.objects.create(email=email)
-        session = SessionStore()
-        session[SESSION_KEY] = user.pk
-        session[BACKEND_SESSION_KEY] = settings.AUTHENTICATION_BACKENDS[0]
-        session.save()
+        if self.against_staging:
+            session_key = create_session_on_server(self.server_host, email)
+        else:
+            session_key = create_pre_authenticated_session(email)
         ## 为了设定cookie, 我们先访问网站
         ## 而404页面是加载最快的
         self.browser.get(self.server_url+"/404_no_such_url/")
         self.browser.add_cookie(dict(
             name=settings.SESSION_COOKIE_NAME,
-            value=session.session_key,
+            value=session_key,
             path='/',
         ))
 
