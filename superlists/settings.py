@@ -117,6 +117,7 @@ AUTHENTICATION_BACKENDS = (
     'accounts.authentication.PersonaAuthenticationBackend',
 )
 
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -128,6 +129,12 @@ LOGGING = {
     },
     'loggers': {
         'django': {
+            'handlers': ['console'],
+        },
+        'accounts': {
+            'handlers': ['console'],
+        },
+        'lists': {
             'handlers': ['console'],
         },
     },
