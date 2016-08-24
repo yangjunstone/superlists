@@ -50,3 +50,4 @@ def _update_database(source_folder):
 
 def _update_settings(source_folder, site_name):
     settings_path = source_folder + '/superlists/setttings.py'
+    sed(settings_path, 'DOMAIN = "localhost"', 'DOMAIN = "%s"' % (site_name,))
