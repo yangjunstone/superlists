@@ -48,7 +48,7 @@ class MylistsTest(FunctionalTest):
         second_list_url = self.browser.current_url
 
         # 在My List页面, 这个新建的清单也显示出来了
-        self.browser.find_element_by_link_text('My lists').click()
+        self.browser.find_element_by_link_text('My Lists').click()
         self.browser.find_element_by_link_text('Click cows').click()
         self.assertEqual(self.browser.current_url, second_list_url)
 
